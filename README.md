@@ -4,6 +4,17 @@
 
 Built for creators, growth teams, and channel researchers who use AI agents (Claude, Cursor, ChatGPT, opencode…).
 
+## Live
+
+- 🌐 Product page: **https://outliertube.shop**
+- 🔌 Remote MCP (no install): **https://mcp.outliertube.shop/mcp**
+- 🧩 Smithery listing: https://smithery.ai/servers/huangtony2025/youtube-outlier
+
+```jsonc
+// add to your MCP config
+{ "mcpServers": { "outliertube": { "url": "https://mcp.outliertube.shop/mcp" } } }
+```
+
 ## Tools
 
 | Tool | What it does |

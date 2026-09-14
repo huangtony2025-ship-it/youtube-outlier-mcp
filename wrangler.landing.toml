@@ -4,3 +4,8 @@ compatibility_date = "2026-09-01"
 [assets]
 directory = "./landing"
 not_found_handling = "404-page"
+
+routes = [
+  { pattern = "outliertube.shop", custom_domain = true },
+  { pattern = "www.outliertube.shop", custom_domain = true },
+]
