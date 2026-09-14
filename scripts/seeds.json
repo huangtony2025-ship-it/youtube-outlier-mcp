@@ -1,0 +1,37 @@
+{
+  "note": "demo/验证用的赛道搜索词 + 已知 handle。等 YOUTUBE_API_KEY 到位后跑 build-demo.mjs。",
+  "search_queries": [
+    "ai tools",
+    "ai news",
+    "faceless youtube channel",
+    "tech review",
+    "productivity",
+    "excel tutorial",
+    "personal finance",
+    "video editing tutorial",
+    "ai video generation",
+    "notion templates",
+    "chatgpt tutorial",
+    "automation n8n"
+  ],
+  "known_handles": [
+    "@Fireship",
+    "@mkbhd",
+    "@Mrwhosetheboss",
+    "@TheAIGRID",
+    "@matthew_berman",
+    "@WesRoth",
+    "@TwoMinutePapers",
+    "@AIJasonZ",
+    "@aliabdaal",
+    "@ThomasFrank",
+    "@PrimalVideo",
+    "@ThinkMediaTV",
+    "@GrahamStephan",
+    "@AndreiJikh",
+    "@KevinStratvert",
+    "@LeilaGharani",
+    "@Dave2D",
+    "@LinusTechTips"
+  ]
+}

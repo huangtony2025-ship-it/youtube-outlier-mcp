@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OutlierTube — YouTube outlier videos, as an MCP server</title>
+<meta name="description" content="An MCP server that finds videos massively outperforming a channel's own median views — so your AI agent can reverse-engineer what actually worked." />
+<meta property="og:title" content="OutlierTube — find the videos that overperformed" />
+<meta property="og:description" content="YouTube outlier analysis as an MCP tool. Works with Claude, Cursor, ChatGPT, opencode." />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style>
+</head>
+<body class="bg-[#0b1020] text-slate-100 antialiased">
+<header class="max-w-5xl mx-auto px-6 pt-16 pb-10">
+  <div class="inline-flex items-center gap-2 text-xs rounded-full border border-slate-700/70 px-3 py-1 text-slate-400">MCP server · Claude · Cursor · ChatGPT · opencode</div>
+  <h1 class="mt-6 text-4xl sm:text-6xl font-bold tracking-tight leading-tight">Find the videos that <span class="text-rose-400">overperformed</span>.</h1>
+  <p class="mt-6 text-lg text-slate-400 leading-relaxed max-w-3xl">
+    Raw view counts hide the signal. <strong class="text-slate-200">OutlierTube</strong> is an MCP server that finds videos beating a channel's <em>own median views</em> by 2×, 5×, 60× — so your AI agent can see exactly which topics and formats broke out.
+  </p>
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a href="#install" class="rounded-lg bg-rose-500 hover:bg-rose-400 text-white font-medium px-5 py-2.5">Install in 1 minute</a>
+    <a href="#demo" class="rounded-lg border border-slate-700 hover:border-slate-500 px-5 py-2.5">See real output</a>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-6 space-y-20 pb-24">
+
+  <section id="demo">
+    <h2 class="text-2xl font-semibold">Real output</h2>
+    <p class="mt-3 text-slate-400">One call: <code class="text-rose-300 mono">find_outlier_videos("@channel")</code>. Median-baselined, so real breakouts stand out.</p>
+    <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-800">
+      <table class="w-full text-sm">
+        <thead class="bg-slate-900/70 text-slate-400">
+          <tr><th class="text-left px-4 py-3">Channel</th><th class="text-left px-4 py-3">Median views</th><th class="text-left px-4 py-3">Outlier</th><th class="text-left px-4 py-3">Video</th></tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800">
+          <tr><td class="px-4 py-3">Wes Roth</td><td class="px-4 py-3 text-slate-400">72,184</td><td class="px-4 py-3"><span class="text-rose-400 font-semibold">×62.7</span></td><td class="px-4 py-3"><a class="hover:underline text-slate-300" href="https://www.youtube.com/watch?v=rAWB8-qiVQo" target="_blank" rel="noopener">HeyGen AI video generator just changed the game…</a></td></tr>
+          <tr><td class="px-4 py-3">Ali Abdaal</td><td class="px-4 py-3 text-slate-400">27,650</td><td class="px-4 py-3"><span class="text-rose-400 font-semibold">×12.3</span></td><td class="px-4 py-3"><a class="hover:underline text-slate-300" href="https://www.youtube.com/watch?v=gUblhLMhc94" target="_blank" rel="noopener">i am begging you to try harry potter fan fiction</a></td></tr>
+          <tr><td class="px-4 py-3">Mrwhosetheboss</td><td class="px-4 py-3 text-slate-400">5,032,888</td><td class="px-4 py-3"><span class="text-rose-400 font-semibold">×8.1</span></td><td class="px-4 py-3"><a class="hover:underline text-slate-300" href="https://www.youtube.com/watch?v=Hf-uB8XLdP0" target="_blank" rel="noopener">$10,000 Power Washer!</a></td></tr>
+          <tr><td class="px-4 py-3">TheAIGRID</td><td class="px-4 py-3 text-slate-400">17,398</td><td class="px-4 py-3"><span class="text-rose-400 font-semibold">×6.2</span></td><td class="px-4 py-3"><a class="hover:underline text-slate-300" href="https://www.youtube.com/watch?v=I-ibd3Hki00" target="_blank" rel="noopener">The 10 Most INSANE Things Created by GPT 5.6</a></td></tr>
+          <tr><td class="px-4 py-3">Fireship</td><td class="px-4 py-3 text-slate-400">837,548</td><td class="px-4 py-3"><span class="text-rose-400 font-semibold">×4.8</span></td><td class="px-4 py-3"><a class="hover:underline text-slate-300" href="https://www.youtube.com/watch?v=FluKUJyeYD8" target="_blank" rel="noopener">Did OpenAI actually build AGI? GPT-6 Astra first look</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-xs text-slate-500">Sample from 18 channels analyzed on 2026-09-14. View counts are YouTube public data; the multiplier is our derived metric, not YouTube official data.</p>
+  </section>
+
+  <section>
+    <h2 class="text-2xl font-semibold">Tools</h2>
+    <ul class="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
+      <li class="rounded-xl border border-slate-800 p-4"><code class="text-rose-300 mono">find_outlier_videos</code><p class="text-slate-400 mt-1">★ Videos N× the channel median.</p></li>
+      <li class="rounded-xl border border-slate-800 p-4"><code class="text-rose-300 mono">resolve_channel</code><p class="text-slate-400 mt-1">Subs, total views, video count.</p></li>
+      <li class="rounded-xl border border-slate-800 p-4"><code class="text-rose-300 mono">get_channel_videos</code><p class="text-slate-400 mt-1">Recent videos, raw YouTube fields.</p></li>
+      <li class="rounded-xl border border-slate-800 p-4"><code class="text-rose-300 mono">search_channels</code><p class="text-slate-400 mt-1">Find channels by keyword.</p></li>
+      <li class="rounded-xl border border-slate-800 p-4"><code class="text-rose-300 mono">get_trending</code><p class="text-slate-400 mt-1">Most-popular by region.</p></li>
+    </ul>
+  </section>
+
+  <section id="install">
+    <h2 class="text-2xl font-semibold">Install (remote MCP — no local setup)</h2>
+    <pre class="mt-4 overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/70 p-4 text-sm mono"><code>{
+  "mcpServers": {
+    "outliertube": {
+      "url": "https://outliertube-mcp.huangtony2025.workers.dev/mcp"
+    }
+  }
+}</code></pre>
+    <p class="mt-3 text-sm text-slate-400">Then ask: <em>"Find the outlier videos on @mkbhd and explain what worked."</em></p>
+  </section>
+
+  <section id="pricing">
+    <h2 class="text-2xl font-semibold">Pricing</h2>
+    <div class="mt-4 grid sm:grid-cols-2 gap-4">
+      <div class="rounded-xl border border-slate-800 p-5">
+        <div class="font-medium">Free</div>
+        <div class="text-3xl font-bold mt-2">$0</div>
+        <ul class="mt-3 text-sm text-slate-400 space-y-1"><li>· Channel overview + recent videos</li><li>· Outlier search (limited per day)</li></ul>
+      </div>
+      <div class="rounded-xl border border-rose-800 bg-rose-950/20 p-5">
+        <div class="font-medium">Pro</div>
+        <div class="text-3xl font-bold mt-2">$19<span class="text-base font-normal text-slate-400">/mo</span></div>
+        <ul class="mt-3 text-sm text-slate-300 space-y-1"><li>· Unlimited outlier searches</li><li>· Bulk channel analysis</li><li>· Priority support</li></ul>
+        <p class="mt-4 text-xs text-slate-400">Early access: email <a class="underline" href="mailto:hi@outliertube.shop">hi@outliertube.shop</a> to get a key.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="text-xs text-slate-500 border-t border-slate-800 pt-6 space-y-2">
+    <p><strong class="text-slate-400">Disclaimer:</strong> Outlier / multiplier values are derived metrics calculated by OutlierTube and are <em>not</em> YouTube official data. This service uses YouTube API Services. By using it you agree to the <a class="underline hover:text-slate-300" href="https://www.youtube.com/t/terms">YouTube Terms of Service</a>. See our <a class="underline hover:text-slate-300" href="privacy.html">Privacy Policy</a> and <a class="underline hover:text-slate-300" href="terms.html">Terms</a>.</p>
+    <p>YouTube is a trademark of Google LLC. Not affiliated with or endorsed by YouTube.</p>
+  </section>
+</main>
+</body>
+</html>

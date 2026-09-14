@@ -1,0 +1,13 @@
+name = "youtube-outlier-mcp"
+main = "src/worker.mjs"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+# routes = [{ pattern = "mcp.<domain>", custom_domain = true }]  # 买域名后启用
+
+[[kv_namespaces]]
+binding = "YT_CACHE"
+id = "2799ae1a1354496ea1c699e76443f861"
+
+# secret（不要写在这里，用 `wrangler secret put YOUTUBE_API_KEY`）
+# YOUTUBE_API_KEY

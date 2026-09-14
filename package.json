@@ -1,0 +1,17 @@
+{
+  "name": "youtube-outlier-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that finds outlier videos on YouTube channels (view multiples vs channel median) for creators and growth teams.",
+  "type": "module",
+  "bin": {
+    "youtube-outlier-mcp": "./src/server.mjs"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "probe": "node src/yt.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "zod": "^3.25.0"
+  }
+}
